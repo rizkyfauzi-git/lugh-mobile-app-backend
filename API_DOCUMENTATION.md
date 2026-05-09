@@ -10,12 +10,14 @@ Mendaftarkan akun pengguna baru.
 - **URL**: `/api/auth/register`
 - **Method**: `POST`
 - **Body**: `{"username": "...", "email": "...", "password": "..."}`
+- **Note**: Setelah pendaftaran berhasil, sistem secara otomatis akan membuatkan dompet default (**Cash & QRIS**) serta kategori dasar Warteg untuk user tersebut.
 
 ### 2. Login
 Melakukan login untuk mendapatkan token akses (JWT).
 - **URL**: `/api/auth/login`
 - **Method**: `POST`
 - **Body**: `{"username": "...", "password": "..."}`
+- **Note**: Bagi user lama yang belum memiliki data dompet, sistem akan melakukan **Auto-Seed** data default pada saat login pertama kali setelah update ini.
 
 ---
 

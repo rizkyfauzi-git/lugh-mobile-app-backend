@@ -43,10 +43,24 @@ func init() {
 			auth.POST("/register", controllers.Register)
 		}
 
-		protected := api.Group("/user")
+		// Protected Routes
+		protected := api.Group("/")
 		protected.Use(middleware.AuthMiddleware())
 		{
-			protected.GET("/profile", controllers.GetProfile)
+			protected.GET("/user/profile", controllers.GetProfile)
+
+			// Wallets
+			protected.GET("/wallets", controllers.GetWallets)
+			protected.POST("/wallets", controllers.CreateWallet)
+
+			// Categories
+			protected.GET("/categories", controllers.GetCategories)
+			protected.POST("/categories", controllers.CreateCategory)
+
+			// Transactions
+			protected.GET("/transactions", controllers.GetTransactions)
+			protected.POST("/transactions", controllers.CreateTransaction)
+			protected.GET("/transactions/summary", controllers.GetSummary)
 		}
 	}
 

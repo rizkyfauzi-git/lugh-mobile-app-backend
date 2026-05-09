@@ -1,0 +1,26 @@
+# Binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+backend
+
+# SDK and local tools
+go/
+go-sdk/
+sdk/
+go.zip
+test.go
+
+# Dependency directories
+vendor/
+
+# Environment variables
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

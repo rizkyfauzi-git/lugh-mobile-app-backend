@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"time"
 	"warteg-system-backend/controllers"
 	"warteg-system-backend/database"
 	"warteg-system-backend/middleware"
@@ -9,24 +10,17 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"time"
 )
 
 var app *gin.Engine
 
 func init() {
-	// In Vercel, we don't strictly need .env because we set them in the dashboard
 	_ = godotenv.Load()
-
-	// Initialize Database
 	database.ConnectDB()
 
-	// Initialize Router
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	r.Use(gin.Recovery())
-
-	// Middlewares
 	r.Use(middleware.SecurityHeaders())
 	
 	r.Use(cors.New(cors.Config{
@@ -59,7 +53,6 @@ func init() {
 	app = r
 }
 
-// Handler is the entry point for Vercel serverless function
 func Handler(w http.ResponseWriter, r *http.Request) {
 	app.ServeHTTP(w, r)
 }

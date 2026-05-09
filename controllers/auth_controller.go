@@ -32,6 +32,13 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	// For existing users: check if they have wallets, if not, seed them
+	var walletCount int64
+	database.DB.Model(&models.Wallet{}).Where("user_id = ?", user.ID).Count(&walletCount)
+	if walletCount == 0 {
+		SeedUserDefaults(user.ID)
+	}
+
 	// Generate JWT
 	token, err := utils.GenerateToken(user.ID)
 	if err != nil {

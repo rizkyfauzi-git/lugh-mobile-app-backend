@@ -54,5 +54,16 @@ func init() {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	if database.DB == nil {
+		// Try to reconnect if DB is nil (serverless cold start might have failed init)
+		database.ConnectDB()
+	}
+
+	if database.DB == nil {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		w.Write([]byte("Database connection is not available. Check your environment variables and DB host access."))
+		return
+	}
+
 	app.ServeHTTP(w, r)
 }

@@ -126,3 +126,26 @@ func GetSummary(c *gin.Context) {
 	
 	c.JSON(http.StatusOK, summary)
 }
+
+func SeedUserDefaults(userID uint) {
+	// 1. Create Default Wallets
+	wallets := []models.Wallet{
+		{Name: "Cash", UserID: userID},
+		{Name: "QRIS", UserID: userID},
+	}
+	for _, w := range wallets {
+		database.DB.Create(&w)
+	}
+
+	// 2. Create Default Categories
+	categories := []models.Category{
+		{Name: "Penjualan", Type: "income", Icon: "cart", UserID: userID},
+		{Name: "Modal", Type: "income", Icon: "wallet", UserID: userID},
+		{Name: "Belanja Pasar", Type: "expense", Icon: "basket", UserID: userID},
+		{Name: "Gaji Karyawan", Type: "expense", Icon: "people", UserID: userID},
+		{Name: "Operasional (Gas/Listrik)", Type: "expense", Icon: "flame", UserID: userID},
+	}
+	for _, cat := range categories {
+		database.DB.Create(&cat)
+	}
+}

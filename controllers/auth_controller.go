@@ -66,6 +66,9 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	// Auto-seed default wallets and categories for the new user
+	SeedUserDefaults(user.ID)
+
 	c.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
 }
 

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"os"
 	"warteg-system-backend/controllers"
 	"warteg-system-backend/database"
 	"warteg-system-backend/middleware"

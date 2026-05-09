@@ -30,9 +30,11 @@ A secure backend for user authentication built with Go, Gin, and GORM (MySQL).
    go run main.go
    ```
 
-## API Endpoints
+## Documentation
+Detail lengkap mengenai endpoint API dapat dilihat di:
+- [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
 
-### Authentication
+## API Endpoints (Quick View)
 - `POST /api/auth/register`: Register a new user.
   ```json
   {

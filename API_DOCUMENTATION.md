@@ -9,7 +9,7 @@ Base URL (Vercel): `https://lugh-mobile-backend-v1.vercel.app/`
 Mendaftarkan akun pengguna baru.
 - **URL**: `/api/auth/register`
 - **Method**: `POST`
-- **Body**: `{"username": "...", "email": "...", "password": "..."}`
+- **Body**: `{"username": "...", "email": "...", "password": "...", "full_name": "...", "phone": "..."}`
 - **Note**: Setelah pendaftaran berhasil, sistem secara otomatis akan membuatkan dompet default (**Cash & QRIS**) serta kategori dasar Warteg untuk user tersebut.
 
 ### 2. Login

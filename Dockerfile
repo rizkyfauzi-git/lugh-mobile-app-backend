@@ -27,6 +27,8 @@ WORKDIR /root/
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/main .
+# Copy static files for dashboard
+COPY --from=builder /app/static ./static
 
 # Expose port (default from .env)
 EXPOSE 8080

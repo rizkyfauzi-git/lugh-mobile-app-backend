@@ -21,9 +21,12 @@ func init() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 
-	// Monitoring Route
-	r.GET("/monitor", func(c *gin.Context) {
-		c.File("./static/monitor.html")
+	// Control Panel Routes
+	r.GET("/", func(c *gin.Context) {
+		c.File("./static/index.html")
+	})
+	r.GET("/login", func(c *gin.Context) {
+		c.File("./static/login.html")
 	})
 
 	r.Use(gin.Recovery())

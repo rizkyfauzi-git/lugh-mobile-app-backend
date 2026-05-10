@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Check if user is logged in
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/login';
+        }
+    </script>
     <title>Lugh Backend | Control Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -103,8 +109,8 @@
         </div>
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-label">Total Users</div>
-                <div class="stat-value" id="stat-users">-</div>
+                <div class="stat-label">System User</div>
+                <div class="stat-value" id="stat-users">Admin</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Uptime</div>
@@ -166,18 +172,12 @@
             } catch (err) { console.error(err); }
         }
 
-        async function loadStats() {
-            // Simplified for now, could fetch real user count if needed
-            document.getElementById('stat-users').innerText = '1'; 
-        }
-
         function logout() {
             localStorage.removeItem('token');
-            window.location.href = '/';
+            window.location.href = '/login';
         }
 
         // Initialize
-        loadStats();
         setInterval(fetchLogs, 5000);
     </script>
 </body>

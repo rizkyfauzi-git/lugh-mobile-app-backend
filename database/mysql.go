@@ -38,4 +38,23 @@ func ConnectDB() {
 	}
 
 	DB = db
+	SeedAdmin()
+}
+
+func SeedAdmin() {
+	var user models.User
+	result := DB.Where("email = ?", "admin@admin.com").First(&user)
+	
+	if result.Error != nil {
+		// Admin not found, create it
+		hashedPassword, _ := models.HashPassword("admin123")
+		admin := models.User{
+			Email:    "admin@admin.com",
+			Password: hashedPassword,
+			FullName: "System Administrator",
+			Phone:    "0000000000",
+		}
+		DB.Create(&admin)
+		log.Println("Default admin account created: admin@admin.com / admin123")
+	}
 }

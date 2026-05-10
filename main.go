@@ -38,8 +38,11 @@ func main() {
 
 	// Serve Static Files
 	r.Static("/static", "./static")
-	r.GET("/monitor", func(c *gin.Context) {
-		c.File("./static/monitor.html")
+	r.GET("/", func(c *gin.Context) {
+		c.File("./static/index.html")
+	})
+	r.GET("/login", func(c *gin.Context) {
+		c.File("./static/login.html")
 	})
 
 	// Global Middlewares

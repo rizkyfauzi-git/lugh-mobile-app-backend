@@ -1,6 +1,8 @@
-# Warteg System Backend (Go)
+# Warteg System Backend
 
-A secure backend for user authentication built with Go, Gin, and GORM (MySQL).
+Backend API untuk sistem manajemen keuangan Warteg berbasis Go (Gin) dan MySQL.
+
+**Deployment Status**: Full CI/CD via GitHub Actions enabled.
 
 ## Security Features
 - **Argon2id/Bcrypt Hashing**: Securely stores passwords.

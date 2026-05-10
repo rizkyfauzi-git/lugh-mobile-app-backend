@@ -49,12 +49,13 @@ func SeedAdmin() {
 		// Admin not found, create it
 		hashedPassword, _ := models.HashPassword("admin123")
 		admin := models.User{
+			Username: "admin",
 			Email:    "admin@admin.com",
 			Password: hashedPassword,
 			FullName: "System Administrator",
 			Phone:    "0000000000",
 		}
 		DB.Create(&admin)
-		log.Println("Default admin account created: admin@admin.com / admin123")
+		log.Println("Default admin account created: admin / admin123")
 	}
 }

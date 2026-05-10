@@ -19,9 +19,9 @@ func Login(c *gin.Context) {
 	}
 
 	var user models.User
-	// Find user by username
-	if err := database.DB.Where("username = ?", req.Username).First(&user).Error; err != nil {
-		// Securely respond with a generic error to prevent username enumeration
+	// Find user by username or email
+	if err := database.DB.Where("username = ? OR email = ?", req.Username, req.Username).First(&user).Error; err != nil {
+		// Securely respond with a generic error to prevent enumeration
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
 		return
 	}

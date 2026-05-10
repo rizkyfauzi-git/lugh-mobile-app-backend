@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 	"warteg-system-backend/models"
 
 	"gorm.io/driver/mysql"
@@ -22,9 +23,21 @@ func ConnectDB() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", 
 		user, pass, host, port, dbname)
 	
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	var db *gorm.DB
+	var err error
+
+	// Retry connection 5 times
+	for i := 0; i < 10; i++ {
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		if err == nil {
+			break
+		}
+		log.Printf("Waiting for database... (attempt %d/10)", i+1)
+		time.Sleep(5 * time.Second)
+	}
+
 	if err != nil {
-		log.Printf("ERROR: Failed to connect to database: %v", err)
+		log.Printf("ERROR: Could not connect to database after retries: %v", err)
 		return
 	}
 
@@ -42,11 +55,13 @@ func ConnectDB() {
 }
 
 func SeedAdmin() {
+	if DB == nil {
+		return
+	}
 	var user models.User
 	result := DB.Where("email = ?", "admin@admin.com").First(&user)
 	
 	if result.Error != nil {
-		// Admin not found, create it
 		hashedPassword, _ := models.HashPassword("admin123")
 		admin := models.User{
 			Username: "admin",

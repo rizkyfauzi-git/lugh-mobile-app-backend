@@ -6,7 +6,7 @@
     <script>
         // Check if user is logged in
         if (!localStorage.getItem('token')) {
-            window.location.href = '/login';
+            window.location.href = '/wartegapp/login';
         }
     </script>
     <title>Lugh Backend | Control Panel</title>
@@ -174,7 +174,7 @@
 
         function logout() {
             localStorage.removeItem('token');
-            window.location.href = '/login';
+            window.location.href = '/wartegapp/login';
         }
 
         // Initialize

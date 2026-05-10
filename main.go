@@ -36,12 +36,11 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
-	// Serve Static Files
-	r.Static("/static", "./static")
-	r.GET("/", func(c *gin.Context) {
+	// Control Panel Routes
+	r.GET("/wartegapp", func(c *gin.Context) {
 		c.File("./static/index.html")
 	})
-	r.GET("/login", func(c *gin.Context) {
+	r.GET("/wartegapp/login", func(c *gin.Context) {
 		c.File("./static/login.html")
 	})
 

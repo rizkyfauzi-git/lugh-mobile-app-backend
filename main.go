@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"os"
 	"time"
@@ -14,8 +15,16 @@ import (
 )
 
 func main() {
+	// Initialize Log File
+	logFile, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err == nil {
+		mw := io.MultiWriter(os.Stdout, logFile)
+		log.SetOutput(mw)
+		gin.DefaultWriter = mw
+	}
+
 	// Load environment variables
-	err := godotenv.Load()
+	err = godotenv.Load()
 	if err != nil {
 		log.Println("Warning: .env file not found, using system environment variables")
 	}
@@ -77,6 +86,9 @@ func main() {
 			protected.GET("/transactions", controllers.GetTransactions)
 			protected.POST("/transactions", controllers.CreateTransaction)
 			protected.GET("/transactions/summary", controllers.GetSummary)
+
+			// Monitoring
+			protected.GET("/monitor/logs", controllers.GetLogs)
 		}
 	}
 

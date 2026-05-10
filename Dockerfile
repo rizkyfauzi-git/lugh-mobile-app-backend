@@ -1,5 +1,8 @@
 # Build stage
-FROM golang:1.20-alpine AS builder
+FROM golang:1.22-alpine AS builder
+
+# Install build dependencies
+RUN apk add --no-cache git
 
 WORKDIR /app
 
@@ -11,19 +14,21 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+# CGO_ENABLED=0 ensures the binary is statically linked
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Run stage
 FROM alpine:latest
 
-WORKDIR /app
+# Install certificates for secure connections
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/main .
-# Copy .env file if you want to include it (though it's better to use environment variables in hosting)
-# COPY .env .
 
-# Expose port
+# Expose port (default from .env)
 EXPOSE 8080
 
 # Command to run

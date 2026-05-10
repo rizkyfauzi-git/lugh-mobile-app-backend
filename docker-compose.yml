@@ -1,14 +1,34 @@
 version: '3.8'
 
 services:
+  # Database Service
+  db:
+    image: mysql:latest
+    container_name: mysql-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Rizky14root
+      MYSQL_DATABASE: warteg_db
+      MYSQL_USER: rizkyfauzi
+      MYSQL_PASSWORD: Rizky14
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - warteg-network
+
+  # Backend Service
   backend:
-    build: .
+    image: ghcr.io/rizkyfauzi-git/lugh-mobile-app-backend:latest
     container_name: warteg-backend
     restart: always
     ports:
       - "8080:8080"
     env_file:
       - .env
+    depends_on:
+      - db
     networks:
       - warteg-network
 

@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  # Nama image akan di-set di step bawah agar huruf kecil semua
 
 jobs:
   build:
@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Lowercase image name
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3

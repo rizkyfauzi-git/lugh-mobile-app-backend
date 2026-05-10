@@ -36,8 +36,16 @@ Buat folder untuk project Anda dan siapkan file konfigurasi:
 mkdir -p ~/warteg-app
 cd ~/warteg-app
 
-# Buat file .env (Copy-paste isi .env lokal Anda ke sini)
+# Buat file .env (Sesuaikan dengan data MySQL di docker-compose)
 nano .env
+
+# Isi .env minimal:
+# DB_HOST=db
+# DB_PORT=3306
+# DB_USER=rizkyfauzi
+# DB_PASSWORD=Rizky14
+# DB_NAME=warteg_db
+# JWT_SECRET=rahasia_anda
 
 # Ambil file docker-compose.yml dari GitHub
 curl -O https://raw.githubusercontent.com/rizkyfauzi-git/lugh-mobile-app-backend/main/docker-compose.yml
@@ -47,15 +55,10 @@ curl -O https://raw.githubusercontent.com/rizkyfauzi-git/lugh-mobile-app-backend
 
 ## 3. Menjalankan Aplikasi
 
-Setiap kali Anda ingin menjalankan atau mengupdate aplikasi ke versi terbaru:
-
 ```bash
 cd ~/warteg-app
 
-# Tarik image terbaru dari GitHub
-docker-compose pull
-
-# Jalankan container (-d artinya berjalan di background)
+# Jalankan semua (Database + Backend)
 docker-compose up -d
 ```
 

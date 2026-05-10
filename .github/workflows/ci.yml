@@ -49,3 +49,23 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/warteg-app
+            # Ambil docker-compose terbaru
+            curl -O https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.yml
+            # Update aplikasi
+            sudo docker compose pull
+            sudo docker compose up -d

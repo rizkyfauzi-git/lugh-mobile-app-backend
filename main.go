@@ -89,6 +89,7 @@ func main() {
 
 			// Monitoring
 			protected.GET("/monitor/logs", controllers.GetLogs)
+			protected.GET("/monitor/docs", controllers.GetDocs)
 		}
 	}
 

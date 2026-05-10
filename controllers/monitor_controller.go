@@ -30,3 +30,12 @@ func GetLogs(c *gin.Context) {
 
 	c.JSON(http.StatusOK, logs[start:])
 }
+
+func GetDocs(c *gin.Context) {
+	content, err := os.ReadFile("API_DOCUMENTATION.md")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not read documentation file"})
+		return
+	}
+	c.Data(http.StatusOK, "text/plain; charset=utf-8", content)
+}

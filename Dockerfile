@@ -29,6 +29,8 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 # Copy static files for dashboard
 COPY --from=builder /app/static ./static
+# Copy documentation for dashboard
+COPY --from=builder /app/API_DOCUMENTATION.md .
 
 # Expose port (default from .env)
 EXPOSE 8080

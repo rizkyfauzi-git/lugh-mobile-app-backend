@@ -9,8 +9,8 @@ import (
 
 type User struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
-	Username  string         `gorm:"uniqueIndex;not null" json:"username" binding:"required,min=4,max=32"`
-	Email     string         `gorm:"uniqueIndex;not null" json:"email" binding:"required,email"`
+	Username  string         `gorm:"uniqueIndex;not null;size:191" json:"username" binding:"required,min=4,max=32"`
+	Email     string         `gorm:"uniqueIndex;not null;size:191" json:"email" binding:"required,email"`
 	Password  string         `gorm:"not null" json:"password"`
 	FullName  string         `json:"full_name"`
 	Phone     string         `json:"phone"`

@@ -24,7 +24,14 @@ func main() {
 	database.ConnectDB()
 
 	// Initialize Router
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
+
+	// Serve Static Files
+	r.Static("/static", "./static")
+	r.GET("/monitor", func(c *gin.Context) {
+		c.File("./static/monitor.html")
+	})
 
 	// Global Middlewares
 	r.Use(middleware.SecurityHeaders())

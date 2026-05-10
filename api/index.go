@@ -20,6 +20,12 @@ func init() {
 
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
+
+	// Monitoring Route
+	r.GET("/monitor", func(c *gin.Context) {
+		c.File("./static/monitor.html")
+	})
+
 	r.Use(gin.Recovery())
 	r.Use(middleware.SecurityHeaders())
 	
